@@ -1,0 +1,167 @@
+[
+  {
+    "id": "exp_001",
+    "name": "Loyalty cashback for churned users",
+    "market": "Rome",
+    "metric": "retention",
+    "lever": "loyalty",
+    "result": "+11% retention recovery in 3 weeks",
+    "uplift": 11,
+    "effort": "medium",
+    "notes": "Targeted users with 0 orders in 14 days. 15% cashback on next 3 orders."
+  },
+  {
+    "id": "exp_002",
+    "name": "Dynamic delivery fee by time slot",
+    "market": "Lisbon",
+    "metric": "order_frequency",
+    "lever": "pricing",
+    "result": "+7% uplift in off-peak orders",
+    "uplift": 7,
+    "effort": "high",
+    "notes": "Reduced fee by 30% in 14:00-17:00 window. Required pricing infra changes."
+  },
+  {
+    "id": "exp_003",
+    "name": "Win-back CRM sequence day 7 + 14",
+    "market": "Global",
+    "metric": "retention",
+    "lever": "crm",
+    "result": "18% of at-risk users recovered",
+    "uplift": 18,
+    "effort": "low",
+    "notes": "Day 7 push notification, day 14 email with discount code. Automated."
+  },
+  {
+    "id": "exp_004",
+    "name": "Free delivery for first 3 orders new users",
+    "market": "Warsaw",
+    "metric": "activation",
+    "lever": "promotions",
+    "result": "+23% D7 retention vs control",
+    "uplift": 23,
+    "effort": "low",
+    "notes": "Acquisition focused but strong downstream retention signal."
+  },
+  {
+    "id": "exp_005",
+    "name": "Restaurant partner badge (top rated)",
+    "market": "Barcelona",
+    "metric": "conversion",
+    "lever": "product",
+    "result": "+4% CVR on badged partners",
+    "uplift": 4,
+    "effort": "low",
+    "notes": "Social proof signal. Small but consistent uplift across cohorts."
+  },
+  {
+    "id": "exp_006",
+    "name": "Weekend surge pricing suppression",
+    "market": "Madrid",
+    "metric": "order_frequency",
+    "lever": "pricing",
+    "result": "+9% order volume Friday–Sunday",
+    "uplift": 9,
+    "effort": "medium",
+    "notes": "Capped delivery fee at €1.49 on weekends. Margin neutral due to volume lift."
+  },
+  {
+    "id": "exp_007",
+    "name": "Cart abandonment push notification",
+    "market": "Istanbul",
+    "metric": "activation",
+    "lever": "crm",
+    "result": "+14% cart recovery rate",
+    "uplift": 14,
+    "effort": "low",
+    "notes": "Triggered 45 minutes after cart abandonment. Personalised with last item viewed."
+  },
+  {
+    "id": "exp_008",
+    "name": "Glovo Prime subscription free trial",
+    "market": "Milan",
+    "metric": "retention",
+    "lever": "promotions",
+    "result": "34% trial-to-paid conversion, +3.2x order frequency",
+    "uplift": 34,
+    "effort": "high",
+    "notes": "30-day free trial of Prime unlimited delivery. Highest retention lever tested."
+  },
+  {
+    "id": "exp_009",
+    "name": "Competitor coupon price match",
+    "market": "Paris",
+    "metric": "conversion",
+    "lever": "promotions",
+    "result": "+6% CVR among price-sensitive segment",
+    "uplift": 6,
+    "effort": "medium",
+    "notes": "Matched Uber Eats promo codes in real time. Required ops coordination."
+  },
+  {
+    "id": "exp_010",
+    "name": "Personalised restaurant recommendations (ML)",
+    "market": "Madrid",
+    "metric": "conversion",
+    "lever": "product",
+    "result": "+8% click-through on recommended partners",
+    "uplift": 8,
+    "effort": "high",
+    "notes": "Collaborative filtering model. Best for users with 5+ order history."
+  },
+  {
+    "id": "exp_011",
+    "name": "Double-sided referral bonus",
+    "market": "Athens",
+    "metric": "activation",
+    "lever": "promotions",
+    "result": "+19% new user acquisition at 40% lower CAC",
+    "uplift": 19,
+    "effort": "low",
+    "notes": "€5 credit for referrer and referee on first order. Viral coefficient 1.3."
+  },
+  {
+    "id": "exp_012",
+    "name": "Flash deals push at 6pm",
+    "market": "Barcelona",
+    "metric": "order_frequency",
+    "lever": "promotions",
+    "result": "+12% orders in 18:00-20:00 window",
+    "uplift": 12,
+    "effort": "low",
+    "notes": "Time-limited 20% discount on selected partners. Highest open rate: 31%."
+  },
+  {
+    "id": "exp_013",
+    "name": "High-value lapsed user reactivation (CRM)",
+    "market": "Global",
+    "metric": "retention",
+    "lever": "crm",
+    "result": "22% reactivation of top-quartile churned users",
+    "uplift": 22,
+    "effort": "low",
+    "notes": "Segmented by historical LTV. Personalised subject lines +22% open rate."
+  },
+  {
+    "id": "exp_014",
+    "name": "Dynamic basket discount threshold",
+    "market": "Rome",
+    "metric": "order_frequency",
+    "lever": "pricing",
+    "result": "+16% average basket size",
+    "uplift": 16,
+    "effort": "medium",
+    "notes": "€2 discount when basket exceeds €25. Threshold personalised by avg. order value."
+  },
+  {
+    "id": "exp_015",
+    "name": "Delivery ETA guarantee with credit",
+    "market": "Global",
+    "metric": "retention",
+    "lever": "product",
+    "result": "+5% NPS improvement, -9% churn in guaranteed cohort",
+    "uplift": 9,
+    "effort": "high",
+    "notes": "€2 credit if delivery exceeds promised ETA. Builds trust in price-sensitive markets."
+  }
+]
