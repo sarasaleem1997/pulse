@@ -47,6 +47,7 @@ function RankBadge({ rank }) {
 function RecommendationCard({ rec }) {
   const isTop = rec.rank === 1
   const isLowConfidence = rec.confidence < 70
+  const isLowRice = rec.rice_score < 50
 
   return (
     <div
@@ -117,6 +118,13 @@ function RecommendationCard({ rec }) {
                   <span className="text-gray-700">{rec.measurement_plan.sample_size}</span>
                 </div>
               </div>
+            </div>
+          )}
+
+          {isLowRice && (
+            <div className="mt-3 flex items-start gap-2 bg-red-50 border border-red-100 rounded-xl px-3 py-2.5">
+              <span className="text-red-400 flex-shrink-0 text-sm">⚠</span>
+              <p className="text-xs text-red-700 leading-relaxed">Low RICE score — this experiment has limited reach, impact, or high effort relative to alternatives. Consider deprioritising.</p>
             </div>
           )}
 

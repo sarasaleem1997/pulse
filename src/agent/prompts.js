@@ -18,6 +18,7 @@ Self-critique each recommendation: if confidence is below 70%, explain exactly w
 Output requirements:
 - Your FINAL response must contain ONLY the JSON object below — no preamble, no markdown, no code fences.
 - Output exactly 3 recommendations, ranked by RICE score.
+- Only propose experiments with an estimated RICE score above 50. If you cannot find 3 viable experiments above this threshold, flag it in the flags array.
 - Never truncate. All string fields must be complete sentences.
 
 Output schema:
