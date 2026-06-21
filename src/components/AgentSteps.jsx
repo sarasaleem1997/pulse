@@ -7,7 +7,7 @@ const TOOL_LABELS = {
 
 function StatusDot({ status }) {
   if (status === 'running') {
-    return <div className="w-2 h-2 rounded-full bg-[#FF6B35] animate-pulse flex-shrink-0 mt-[5px]" />
+    return <div className="w-2 h-2 rounded-full bg-[#00A082] animate-pulse flex-shrink-0 mt-[5px]" />
   }
   if (status === 'done') {
     return (
@@ -27,7 +27,7 @@ function StepRow({ step }) {
         <div className="flex items-center gap-2 flex-wrap">
           <span
             className={`text-[13px] font-semibold ${
-              step.status === 'running' ? 'text-[#FF6B35]' : 'text-white/75'
+              step.status === 'running' ? 'text-[#00A082]' : 'text-white/75'
             }`}
           >
             {step.name}

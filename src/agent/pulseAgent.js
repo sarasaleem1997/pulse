@@ -96,8 +96,10 @@ export async function runPulseAgent({ problem, onStep, onComplete, onError }) {
           : 'Evidence sufficient — synthesising directly from context',
     })
 
-    // Agentic tool-calling loop
-    while (response.stop_reason === 'tool_use') {
+    // Agentic tool-calling loop (capped at 4 iterations)
+    let loopCount = 0
+    while (response.stop_reason === 'tool_use' && loopCount < 2) {
+      loopCount++
       const toolUses = response.content.filter((b) => b.type === 'tool_use')
       const toolResults = []
 

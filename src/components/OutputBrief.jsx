@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 function ConfidenceBar({ value }) {
   const isHigh = value > 75
   const isMid = value >= 50 && value <= 75
@@ -20,7 +22,7 @@ function ConfidenceBar({ value }) {
 function RankBadge({ rank }) {
   if (rank === 1) {
     return (
-      <div className="flex-shrink-0 flex flex-col items-center justify-center w-11 h-11 rounded-xl bg-[#FF6B35] text-white shadow-md shadow-[#FF6B35]/30">
+      <div className="flex-shrink-0 flex flex-col items-center justify-center w-11 h-11 rounded-xl bg-[#FFC244] text-white shadow-md shadow-[#FFC244]/30">
         <span className="text-[9px] font-bold opacity-60 leading-none">#</span>
         <span className="text-xl font-black leading-none">{rank}</span>
       </div>
@@ -50,7 +52,7 @@ function RecommendationCard({ rec }) {
     <div
       className={`rounded-2xl border p-5 transition-all ${
         isTop
-          ? 'border-[#FF6B35]/25 bg-gradient-to-br from-[#FF6B35]/[0.04] to-white shadow-sm'
+          ? 'border-[#00A082]/25 bg-gradient-to-br from-[#00A082]/[0.04] to-white shadow-sm'
           : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
       }`}
     >
@@ -73,7 +75,7 @@ function RecommendationCard({ rec }) {
               <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.13em] mb-1">RICE Score</p>
               <p
                 className={`font-black tabular-nums leading-none ${
-                  isTop ? 'text-[2.75rem] text-[#FF6B35]' : 'text-[1.75rem] text-gray-700'
+                  isTop ? 'text-[2.75rem] text-[#00A082]' : 'text-[1.75rem] text-gray-700'
                 }`}
               >
                 {rec.rice_score}
@@ -84,6 +86,39 @@ function RecommendationCard({ rec }) {
               <ConfidenceBar value={rec.confidence} />
             </div>
           </div>
+
+          {rec.hypothesis && (
+            <div className="mt-3 bg-[#00A082]/[0.05] border border-[#00A082]/20 rounded-xl px-3 py-2.5">
+              <p className="text-[9px] font-bold text-[#00A082] uppercase tracking-[0.13em] mb-1">Hypothesis</p>
+              <p className="text-xs text-gray-700 leading-relaxed italic">{rec.hypothesis}</p>
+            </div>
+          )}
+
+          {rec.measurement_plan && (
+            <div className="mt-2 bg-gray-50 border border-gray-100 rounded-xl px-3 py-2.5">
+              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.13em] mb-2">Measurement Plan</p>
+              <div className="space-y-1">
+                <div className="flex gap-2 text-xs">
+                  <span className="text-gray-400 w-28 flex-shrink-0">Primary metric</span>
+                  <span className="text-gray-700 font-medium">{rec.measurement_plan.primary_metric}</span>
+                </div>
+                {rec.measurement_plan.secondary_metrics?.length > 0 && (
+                  <div className="flex gap-2 text-xs">
+                    <span className="text-gray-400 w-28 flex-shrink-0">Secondary</span>
+                    <span className="text-gray-700">{rec.measurement_plan.secondary_metrics.join(', ')}</span>
+                  </div>
+                )}
+                <div className="flex gap-2 text-xs">
+                  <span className="text-gray-400 w-28 flex-shrink-0">Test duration</span>
+                  <span className="text-gray-700">{rec.measurement_plan.test_duration}</span>
+                </div>
+                <div className="flex gap-2 text-xs">
+                  <span className="text-gray-400 w-28 flex-shrink-0">Sample size</span>
+                  <span className="text-gray-700">{rec.measurement_plan.sample_size}</span>
+                </div>
+              </div>
+            </div>
+          )}
 
           {isLowConfidence && rec.confidence_note && (
             <div className="mt-3 flex items-start gap-2 bg-amber-50 border border-amber-100 rounded-xl px-3 py-2.5">
@@ -103,11 +138,58 @@ const FLAG_STYLES = {
   missing_evidence: 'text-red-700 bg-red-50 border-red-200',
 }
 
+function formatBriefForClipboard(brief) {
+  const { problem_parsed, recommendations = [], flags = [] } = brief
+  const levers = problem_parsed?.levers?.join(', ') || ''
+  const lines = [
+    'PULSE — Experiment Brief',
+    '─'.repeat(40),
+    `Market: ${problem_parsed?.market || '—'} | Metric: ${problem_parsed?.metric || '—'}`,
+    levers ? `Levers: ${levers}` : '',
+    '',
+    'RECOMMENDATIONS',
+    '',
+    ...recommendations.flatMap((r) => [
+      `#${r.rank} — ${r.experiment}`,
+      `RICE Score: ${r.rice_score} | Confidence: ${r.confidence}%`,
+      r.rationale,
+      `Evidence: ${r.evidence}`,
+      r.confidence_note ? `Note: ${r.confidence_note}` : '',
+      '',
+    ]),
+  ]
+  if (flags.length > 0) {
+    lines.push('FLAGS')
+    flags.forEach((f) => lines.push(`⚠ ${f.message}`))
+  }
+  return lines.filter((l) => l !== undefined).join('\n').trim()
+}
+
 export default function OutputBrief({ brief }) {
+  const [copied, setCopied] = useState(false)
+
   if (!brief) return null
 
   const { problem_parsed, recommendations = [], flags = [] } = brief
   const levers = problem_parsed?.levers?.join(' · ') || ''
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(formatBriefForClipboard(brief))
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // fallback for browsers that block clipboard
+      const el = document.createElement('textarea')
+      el.value = formatBriefForClipboard(brief)
+      document.body.appendChild(el)
+      el.select()
+      document.execCommand('copy')
+      document.body.removeChild(el)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
 
   return (
     <div className="mt-4 space-y-3 animate-brief-in">
@@ -118,8 +200,8 @@ export default function OutputBrief({ brief }) {
           </p>
           <div className="flex items-center gap-2 flex-wrap">
             {problem_parsed?.market && (
-              <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 bg-[#FF6B35]/10 text-[#FF6B35] rounded-full font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35]" />
+              <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 bg-[#00A082]/10 text-[#00A082] rounded-full font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00A082]" />
                 {problem_parsed.market}
               </span>
             )}
@@ -135,9 +217,10 @@ export default function OutputBrief({ brief }) {
         </div>
         <button
           type="button"
-          className="flex-shrink-0 text-xs font-bold text-gray-600 border border-gray-200 rounded-xl px-4 py-2 hover:bg-gray-50 hover:border-gray-300 active:bg-gray-100 transition-all"
+          onClick={handleCopy}
+          className="flex-shrink-0 text-xs font-bold border rounded-xl px-4 py-2 transition-all active:scale-[0.97] text-gray-600 border-gray-200 hover:bg-gray-50 hover:border-gray-300"
         >
-          Share with VP ↗
+          {copied ? '✓ Copied!' : 'Share with VP ↗'}
         </button>
       </div>
 

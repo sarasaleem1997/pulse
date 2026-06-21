@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-const FEATURES = ['RICE Scoring', 'App Review Analysis', 'Competitor Intel', 'VP-Ready Brief']
+const FEATURES = ['RICE Scoring', 'App Review Analysis', 'Competitor Intel', 'Past Experiment Search', 'VP-Ready Brief']
 
 export default function Landing() {
   const navigate = useNavigate()
@@ -22,33 +22,31 @@ export default function Landing() {
       />
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center text-center max-w-md">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl">
 
         {/* Logo mark */}
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FF6B35] to-[#d94f1a] flex items-center justify-center shadow-2xl shadow-[#FF6B35]/30 mb-8">
-          <span className="text-white font-black text-3xl select-none leading-none">P</span>
-        </div>
+        <img src="/glovo-logo.png" alt="Glovo" className="h-12 w-auto mb-8" />
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 text-[11px] font-semibold text-[#FF6B35] bg-[#FF6B35]/10 border border-[#FF6B35]/20 px-3.5 py-1.5 rounded-full mb-6 uppercase tracking-widest">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35] animate-pulse" />
-          Growth Intelligence · Glovo
+        <div className="inline-flex items-center gap-2 text-[11px] font-semibold text-[#00A082] bg-[#00A082]/10 border border-[#00A082]/20 px-3.5 py-1.5 rounded-full mb-6 uppercase tracking-widest">
+          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: '#FFC244' }} />
+          Growth Intelligence Partner
         </div>
 
         {/* Headline */}
-        <h1 className="text-[3.25rem] font-extrabold text-white tracking-tight leading-[1.1] mb-5">
-          Your growth analyst,<br />on demand.
+        <h1 className="text-[3rem] font-extrabold text-white tracking-tight leading-[1.1] mb-5 whitespace-nowrap">
+          Your AI-powered growth analyst
         </h1>
 
         {/* Subtext */}
-        <p className="text-base text-white/40 leading-relaxed mb-10 max-w-[340px]">
-          Describe a retention or growth problem. Pulse researches past experiments, competitor signals, and app sentiment — then produces a VP-ready brief in seconds.
+        <p className="text-lg text-white/40 leading-relaxed mb-10">
+          Tell Pulse what you're trying to solve. It researches, scores, and recommends the right experiment so you can move fast.
         </p>
 
         {/* CTA */}
         <button
           onClick={() => navigate('/app')}
-          className="group px-8 py-3.5 bg-[#FF6B35] hover:bg-[#e55c28] active:scale-[0.97] text-white font-bold text-base rounded-xl transition-all shadow-lg shadow-[#FF6B35]/25 hover:shadow-xl hover:shadow-[#FF6B35]/40 flex items-center gap-2.5"
+          className="group px-8 py-3.5 bg-[#00A082] hover:bg-[#00876e] active:scale-[0.97] text-white font-bold text-base rounded-xl transition-all shadow-lg shadow-[#00A082]/25 hover:shadow-xl hover:shadow-[#00A082]/40 flex items-center gap-2.5"
         >
           Launch Pulse
           <span className="transition-transform group-hover:translate-x-0.5">→</span>
@@ -67,14 +65,6 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* Bottom status bar */}
-      <div className="absolute bottom-6 flex items-center gap-2">
-        <div
-          className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-          style={{ boxShadow: '0 0 5px #34d399, 0 0 10px #34d39950' }}
-        />
-        <span className="text-white/20 text-[11px] font-mono tracking-wide">Glovo HQ · Barcelona</span>
-      </div>
     </div>
   )
 }
