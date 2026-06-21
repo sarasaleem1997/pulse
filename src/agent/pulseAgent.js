@@ -44,7 +44,7 @@ function parseJsonOutput(text) {
   const jsonObject = text.match(/\{[\s\S]+\}/)
   if (jsonObject) return JSON.parse(jsonObject[0])
 
-  throw new Error('Agent response was not valid JSON.')
+  throw new Error('Pulse is designed for fresh growth problems. Click "← Run another problem" and describe a specific challenge — e.g. "retention is dropping in Madrid".')
 }
 
 export async function runPulseAgent({ problem, onStep, onComplete, onError }) {
