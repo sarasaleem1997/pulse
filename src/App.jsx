@@ -71,13 +71,13 @@ export default function App() {
   }
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="flex flex-col min-h-screen md:h-screen md:overflow-hidden">
       <TopBar />
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 md:overflow-hidden">
 
         {/* Left panel — input */}
-        <div className="w-1/2 border-r border-gray-200 flex flex-col overflow-hidden">
+        <div className="w-full md:w-1/2 border-b md:border-b-0 md:border-r border-gray-200 flex flex-col md:overflow-hidden">
 
           {/* Fixed: description + input */}
           <div className="p-6 flex flex-col gap-4 border-b border-gray-100">
@@ -100,7 +100,7 @@ export default function App() {
         </div>
 
         {/* Right panel — output */}
-        <div className="w-1/2 flex flex-col overflow-y-auto">
+        <div className="w-full md:w-1/2 flex flex-col overflow-y-auto">
           {brief ? (
             <div className="p-6 flex flex-col gap-4">
               <OutputBrief brief={brief} />

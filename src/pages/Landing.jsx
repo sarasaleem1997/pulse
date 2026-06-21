@@ -34,12 +34,12 @@ export default function Landing() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-[3rem] font-extrabold text-white tracking-tight leading-[1.1] mb-5 whitespace-nowrap">
+        <h1 className="text-[2rem] md:text-[3rem] font-extrabold text-white tracking-tight leading-[1.1] mb-5">
           Your AI-powered growth analyst
         </h1>
 
         {/* Subtext */}
-        <p className="text-lg text-white/40 leading-relaxed mb-10">
+        <p className="text-base md:text-lg text-white/40 leading-relaxed mb-10">
           Tell Pulse what you're trying to solve. It researches, scores, and recommends the right experiment so you can move fast.
         </p>
 
