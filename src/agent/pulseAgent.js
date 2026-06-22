@@ -139,6 +139,11 @@ export async function runPulseAgent({ problem, onStep, onComplete, onError }) {
       messages.push({ role: 'assistant', content: response.content })
       messages.push({ role: 'user', content: toolResults })
 
+      const hasRice = toolUses.some((t) => t.name === 'apply_rice_framework')
+      if (hasRice) {
+        onStep({ id: 'synthesise', name: 'Synthesise', status: 'running', finding: null })
+      }
+
       response = await client.messages.create({
         model: 'claude-sonnet-4-5',
         max_tokens: 4096,
