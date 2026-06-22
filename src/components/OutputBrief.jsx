@@ -173,6 +173,74 @@ function formatBriefForClipboard(brief) {
   return lines.filter((l) => l !== undefined).join('\n').trim()
 }
 
+function FeedbackCapture() {
+  const [rating, setRating] = useState(null)
+  const [note, setNote] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleSubmit = () => {
+    setSubmitted(true)
+  }
+
+  if (submitted) {
+    return (
+      <div className="bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-sm flex items-center gap-3">
+        <span className="text-[#00A082] text-lg">✓</span>
+        <p className="text-sm text-gray-600 font-medium">Thanks — feedback noted. This helps improve Pulse over time.</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-2xl px-5 py-4 shadow-sm">
+      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.13em] mb-3">Was this brief useful?</p>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setRating('up')}
+          className={`text-xl px-3 py-1.5 rounded-xl border transition-all ${
+            rating === 'up'
+              ? 'bg-[#00A082]/10 border-[#00A082]/30 text-[#00A082]'
+              : 'border-gray-200 hover:bg-gray-50 text-gray-400'
+          }`}
+        >
+          👍
+        </button>
+        <button
+          type="button"
+          onClick={() => setRating('down')}
+          className={`text-xl px-3 py-1.5 rounded-xl border transition-all ${
+            rating === 'down'
+              ? 'bg-red-50 border-red-200 text-red-500'
+              : 'border-gray-200 hover:bg-gray-50 text-gray-400'
+          }`}
+        >
+          👎
+        </button>
+      </div>
+
+      {rating && (
+        <div className="mt-3 flex gap-2">
+          <input
+            type="text"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder={rating === 'up' ? 'What worked well? (optional)' : 'What was missing or off? (optional)'}
+            className="flex-1 text-xs border border-gray-200 rounded-xl px-3 py-2 outline-none focus:border-[#00A082]/40 text-gray-700 placeholder:text-gray-300"
+          />
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="text-xs font-bold px-4 py-2 bg-[#00A082] text-white rounded-xl hover:bg-[#009070] active:scale-[0.97] transition-all"
+          >
+            Send
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function OutputBrief({ brief }) {
   const [copied, setCopied] = useState(false)
 
@@ -258,6 +326,8 @@ export default function OutputBrief({ brief }) {
           </ul>
         </div>
       )}
+
+      <FeedbackCapture />
     </div>
   )
 }
