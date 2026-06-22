@@ -37,7 +37,7 @@ export const toolDefinitions = [
         },
         metric: {
           type: 'string',
-          description: 'Filter by metric (optional): retention, conversion, activation, order_frequency',
+          description: 'Filter by metric (optional): retention, conversion, activation, order_frequency. Use "activation" for acquisition-related problems (new users, first orders, referrals, CAC).',
         },
       },
       required: [],
@@ -72,6 +72,41 @@ export const toolDefinitions = [
 
 function mockWebSearch({ query }) {
   const q = query.toLowerCase()
+
+  if (
+    q.includes('acquisition') ||
+    q.includes('new user') ||
+    q.includes('referral') ||
+    q.includes('cac') ||
+    q.includes('paid channel') ||
+    q.includes('first order') ||
+    q.includes('user growth') ||
+    q.includes('install') ||
+    q.includes('sign up') ||
+    q.includes('signup')
+  ) {
+    return {
+      results: [
+        {
+          title: 'Q-commerce user acquisition benchmarks Europe 2025',
+          snippet:
+            'Average CAC for food delivery in Southern Europe: €14–€22 via paid social, €6–€9 via referral. Referral programmes yield 30–40% lower CAC than paid channels. Viral coefficient above 1.2 sustains organic growth loops.',
+        },
+        {
+          title: 'Glovo vs Uber Eats new user growth — Spain Q1 2025',
+          snippet:
+            'Uber Eats running 40% off first 3 orders in Madrid since February, driving +18% weekly installs. First-order completion rate industry benchmark: 62–71%. Biggest drop-off: delivery fee shown at checkout.',
+        },
+        {
+          title: 'Double-sided referral mechanics — delivery platforms 2024',
+          snippet:
+            'Double-sided referral (credit for referrer + referee) outperforms one-sided by 2.1x on activation rate. Optimal credit: €4–€6 per side. Time-limited referral windows (7 days) increase urgency and conversion.',
+        },
+      ],
+      query,
+      source: 'web_search_mock',
+    }
+  }
 
   if (
     q.includes('madrid') &&
